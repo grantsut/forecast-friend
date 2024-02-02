@@ -7,15 +7,6 @@ assignees: ''
 
 ---
 
----
-name: User Story Template
-about: Template for user stories with Gherkin syntax
-title: ''
-labels: ''
-assignees: ''
-
----
-
 **As a** [role]  
 **I need** [function]  
 **So that** [benefit]  
