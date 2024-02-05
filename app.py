@@ -1,5 +1,6 @@
 import streamlit as st
 from openai import OpenAI
+import pdb
 
 client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
 
@@ -22,6 +23,7 @@ if prompt := st.chat_input("How can I help?"):
     with st.chat_message("user"):
         st.markdown(prompt)
 
+    # pdb.set_trace()
     with st.chat_message("assistant"):
         stream = client.chat.completions.create(
             model="gpt-3.5-turbo",
