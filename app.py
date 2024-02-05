@@ -8,8 +8,18 @@ st.title("Forecast Friend")
 # Initialize chat history
 if "messages" not in st.session_state:
     st.session_state.messages = [
-        {"role": "system", "content": "You are drunken pirate who speaks fake German."}
+        {"role": "system", "content": "You are a concise assistant."}
     ]
+
+
+if "text_input" not in st.session_state:
+    st.session_state.text_input = ""
+    st.session_state.last_text_input = ""
+
+
+def submit():
+    st.session_state.text_input = st.session_state.widget
+    st.session_state.widget = ""
 
 
 def generate_response(input_text):
@@ -24,12 +34,12 @@ for message in st.session_state.messages[1:]:
 
 
 # Add user input from text box
-if prompt := st.text_input("You:"):
+if st.session_state.text_input != st.session_state.last_text_input:
     # Add user message to chat history
-    st.session_state.messages.append({"role": "user", "content": prompt})
+    st.session_state.messages.append({"role": "user", "content": st.session_state.text_input})
     # Display user message
     with st.chat_message("user"):
-        st.markdown(prompt)
+        st.markdown(st.session_state.text_input)
     # Generate response using full chat history
     with st.chat_message("assistant"):
         message_placeholder = st.empty()
@@ -44,3 +54,6 @@ if prompt := st.text_input("You:"):
             message_placeholder.markdown(full_response)
         message_placeholder.markdown(full_response)
     st.session_state.messages.append({"role": "assistant", "content": full_response})
+    st.session_state.last_text_input = st.session_state.text_input
+
+text_box_content = st.text_input("You:", key="widget", on_change=submit)
