@@ -1,5 +1,4 @@
 from streamlit.testing.v1 import AppTest
-import openai
 import pytest
 
 
