@@ -1,5 +1,4 @@
 from streamlit.testing.v1 import AppTest
-import openai
 import pytest
 
 
@@ -7,7 +6,8 @@ import pytest
 def mock_openai(monkeypatch):
     def mockcall(*args, **kwargs):
         return (r for r in ["This ", "is ", "your ", "response."])
-
+    
+    monkeypatch.setattr("streamlit.secrets", {"OPENAI_API_KEY": "dummy"})
     monkeypatch.setattr(
         "openai.resources.chat.completions.Completions.create", mockcall
     )
