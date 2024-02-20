@@ -1,5 +1,3 @@
-# forecast-friend
-
 This is a work-in-progress chat assistant that creates time series forecasts using data from public repositories, helping you find good data and constructing a forecast model as required.
 
 Available online at [https://forecast-friend-alpha.streamlit.app](https://forecast-friend-alpha.streamlit.app)
