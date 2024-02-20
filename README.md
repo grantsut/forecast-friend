@@ -1,4 +1,5 @@
-work-in-progress forecasting chat assistant
+# Forecast-Friend
+Forecasting chat assistant, work-in-progress.
 
 This is a work-in-progress chat assistant that creates time series forecasts using data from public repositories, helping you find good data and constructing a forecast model as required.
 
