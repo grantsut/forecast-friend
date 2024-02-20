@@ -1,12 +1,14 @@
 import os
 import json
 import requests
+import streamlit as st
 
 
 def fred_series_search(
     search_text: str,
     frequency: str | None = None,
     return_fields: list[str] | None = None,
+    debug = False
 ) -> str:
     """
     Submits a query to the FRED search API and returns results as a serialized JSON.
@@ -21,8 +23,9 @@ def fred_series_search(
     """
     params = {
         "file_type": "json",
-        "api_key": os.environ["FRED_API_KEY"],
+        "api_key": st.secrets["FRED_API_KEY"],
         "search_text": search_text,
+        "limit": 50,
     }
 
     fields = ["title", "id", "frequency", "last_updated"]
@@ -43,15 +46,15 @@ def fred_series_search(
     if r.status_code == 200:
         j = r.json()
         count = j["count"]
-        if count > 100:
-            return f"{count} results were returned. Please refine your search."
-        else:
-            series = [
-                {f: d[f] for f in fields}
-                for d in j["seriess"]
-                if int(d["last_updated"][:4]) > 2022
-            ]
-            results = {"count": count, "series": series}
-            return json.dumps(results)
+        series = [
+            {f: d[f] for f in fields}
+            for d in j["seriess"]
+            if int(d["last_updated"][:4]) > 2022
+        ]
+        results = {"count": count, "series": series}
+        return json.dumps(results)
     else:
+        if debug:
+            return r
+        
         return f"Call to API failed with status code {r.status_code}."
