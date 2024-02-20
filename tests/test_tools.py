@@ -11,6 +11,11 @@ from src.tools import fred_series_search
 # First patch calls to the FRED search API with requests so that it returns a list of prefetched results
 # from a local JSON file.
 
+@pytest.fixture(autouse=True)
+def no_secrets(monkeypatch):
+    # Patch streamlit secrets
+    monkeypatch.setattr("streamlit.secrets", {"OPENAI_API_KEY": "dummy"})
+
 
 @pytest.fixture
 def mock_fred_search_good(monkeypatch):
