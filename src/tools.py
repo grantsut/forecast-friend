@@ -25,7 +25,7 @@ def fred_series_search(
         "file_type": "json",
         "api_key": st.secrets["FRED_API_KEY"],
         "search_text": search_text,
-        "limit": 50,
+        "limit": 25,
     }
 
     fields = ["title", "id", "frequency", "last_updated"]
